@@ -2,51 +2,54 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
+   static int currentYear =  LocalDate.now().getYear();
+
 
     public static void main(String[] args) {
-        searchLeapYear();
+        isCurrentYearLeap();
         identifyAppVersion();
-        days();
+        printDays();
 
     }
-    public static int currentYear(){
-        return LocalDate.now().getYear();
+    private static int getCurrentYear() {
+        return currentYear;
     }
-    public static void searchLeapYear() {
-        boolean leapYear = ((currentYear() % 4 == 0) && (currentYear() % 100 != 0) || (currentYear() % 400 == 0));
+    private static void isCurrentYearLeap() {
+        boolean leapYear = ((getCurrentYear() % 4 == 0) && (getCurrentYear() % 100 != 0) || (getCurrentYear() % 400 == 0));
         if (leapYear) {
-            System.out.println(currentYear() + " ãîä ÿâëÿåòñÿ âèñîêîñíûì");
+            System.out.println(getCurrentYear() + " Ð³Ð¾Ð´ ÑÐ²Ð»ÑÐµÑ‚ÑÑ Ð²Ð¸ÑÐ¾ÐºÐ¾ÑÐ½Ñ‹Ð¼");
         } else {
-            System.out.println(currentYear() + " ãîä íå ÿâëÿåòñÿ âèñîêîñíûì");
+            System.out.println(getCurrentYear() + " Ð³Ð¾Ð´ Ð½Ðµ ÑÐ²Ð»ÑÐµÑ‚ÑÑ Ð²Ð¸ÑÐ¾ÐºÐ¾ÑÐ½Ñ‹Ð¼");
         }
     }
-    public static int clientOS(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Ââåäèòå ÎÑ Âàøåãî óñòðîéñòâà, ãäå IOS ýòî 0 à Android ýòî 1");
-        return scanner.nextInt();
+    private static int clientOS(){
+        try(Scanner scanner = new Scanner(System.in)) {
+            System.out.println("Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐžÐ¡ Ð’Ð°ÑˆÐµÐ³Ð¾ ÑƒÑÑ‚Ñ€Ð¾Ð¹ÑÑ‚Ð²Ð°, Ð³Ð´Ðµ IOS ÑÑ‚Ð¾ 0 Ð° Android ÑÑ‚Ð¾ 1");
+            return scanner.nextInt();
+        }
     }
-    public static void identifyAppVersion() {
+    private static void identifyAppVersion() {
         int clientIOS = 0;
         int clientAndroid = 1;
         int year = 2015;
         int os = clientOS();
-        if (os == clientIOS && currentYear() >= year) {
-            System.out.println("Óñòàíîâèòå âåðñèþ ïðèëîæåíèÿ äëÿ iOS ïî ññûëêå");
+        if (os == clientIOS && getCurrentYear() >= year) {
+            System.out.println("Ð£ÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ñ‚Ðµ Ð²ÐµÑ€ÑÐ¸ÑŽ Ð¿Ñ€Ð¸Ð»Ð¾Ð¶ÐµÐ½Ð¸Ñ Ð´Ð»Ñ iOS Ð¿Ð¾ ÑÑÑ‹Ð»ÐºÐµ");
         } else if (os == clientIOS) {
-            System.out.println("Óñòàíîâèòå îáëåã÷åííóþ âåðñèþ ïðèëîæåíèÿ äëÿ iOS ïî ññûëêå");
-        } else if (os == clientAndroid && currentYear() >= year) {
-            System.out.println("Óñòàíîâèòå âåðñèþ ïðèëîæåíèÿ äëÿ Android ïî ññûëêå");
+            System.out.println("Ð£ÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ñ‚Ðµ Ð¾Ð±Ð»ÐµÐ³Ñ‡ÐµÐ½Ð½ÑƒÑŽ Ð²ÐµÑ€ÑÐ¸ÑŽ Ð¿Ñ€Ð¸Ð»Ð¾Ð¶ÐµÐ½Ð¸Ñ Ð´Ð»Ñ iOS Ð¿Ð¾ ÑÑÑ‹Ð»ÐºÐµ");
+        } else if (os == clientAndroid && getCurrentYear() >= year) {
+            System.out.println("Ð£ÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ñ‚Ðµ Ð²ÐµÑ€ÑÐ¸ÑŽ Ð¿Ñ€Ð¸Ð»Ð¾Ð¶ÐµÐ½Ð¸Ñ Ð´Ð»Ñ Android Ð¿Ð¾ ÑÑÑ‹Ð»ÐºÐµ");
         } else if (os == clientAndroid) {
-            System.out.println("Óñòàíîâèòå îáëåã÷åííóþ âåðñèþ ïðèëîæåíèÿ äëÿ Android ïî ññûëêå");
+            System.out.println("Ð£ÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ñ‚Ðµ Ð¾Ð±Ð»ÐµÐ³Ñ‡ÐµÐ½Ð½ÑƒÑŽ Ð²ÐµÑ€ÑÐ¸ÑŽ Ð¿Ñ€Ð¸Ð»Ð¾Ð¶ÐµÐ½Ð¸Ñ Ð´Ð»Ñ Android Ð¿Ð¾ ÑÑÑ‹Ð»ÐºÐµ");
         }
     }
-    public static int deliveryDistance(){
+    private static int deliveryDistance(){
         return 95;
     }
-    public static void days(){
-        System.out.println("Äîñòàâêà çàéìåò " + deliverCart() + " äíÿ");
+    private static void printDays(){
+        System.out.println("Ð”Ð¾ÑÑ‚Ð°Ð²ÐºÐ° Ð·Ð°Ð¹Ð¼ÐµÑ‚ " + deliverCart() + " Ð´Ð½Ñ");
     }
-    public static int deliverCart(){
+    private static int deliverCart(){
     int delivery = 1;
          if (deliveryDistance() > 60) {
         delivery++;
